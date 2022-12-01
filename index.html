@@ -1,31 +1,44 @@
 <!doctype html>
 <html>
-  </head>
+  <head>
     <title>Hello, Snaps!</title>
     <link rel="icon" type="image/svg" href="./images/icon.svg"/>
   </head>
 
   <body>
-    <h1>Hello, Snaps!</h1>
+    <h1>SNAPXRP Early Demo</h1>    
     <details>
       <summary>Instructions</summary>
       <ul>
-        <li>First, click "Connect". Then, try out the other buttons!</li>
-        <li>Please note that:</li>
-        <ul>
-          <li>
-            The <code>snap.manifest.json</code> and <code>package.json</code> must be located in the server root directory...
-          </li>
-          <li>
-            The Snap bundle must be hosted at the location specified by the <code>location</code> field of <code>snap.manifest.json</code>.
-          </li>
-        </ul>
+        <li>First make sure you have metamask flask and not normal metamask, this may require uninstalling normal metamask</li>
+        <li>then, click "Connect". This will install the snap</li>
+        <li>then get Address and fund the account at the</li>
+        <li>
+          <a href="https://yusufsahinhamza.github.io/xrp-testnet-faucet/">xrp testnet faucet</a>
+        </li>
+        <li>Snaps will work on the default version of metamask before the end of the year</li>
+        
       </ul>
     </details>
     <br/>
-
+    <input id="testnet" type="checkbox" checked/>
+    <label for="testnet">Testnet</label>
+    <br/>
     <button class="connect">Connect</button>
-    <button class="sendHello">Send Hello</button>
+    <button class="sendHello">getAddress</button>
+    <button class="showBalance">showBalance</button>
+    <br>
+    <p id="userAddress"></p>
+    <br/>
+    <br/>
+    <p id="address"></p>
+    <input id="sendAddress" value="rPT1Sjq2YGrBMTttX4GZHjKu9dyfzbpAYe" width="800" label="address"/>
+    <br/>
+    <p>amount (drops)</p>
+    <input id="sendAmount" type="number" label="amount(drops)"/>
+    <br/>
+    <button id="send">send XRP</button>
+
   </body>
 
   <script>
@@ -33,9 +46,16 @@
 
     const connectButton = document.querySelector('button.connect')
     const sendButton = document.querySelector('button.sendHello')
-
+    const showBalanceButton = document.querySelector('button.showBalance')
+    const sendAddress = document.getElementById('sendAddress');
+    const sendAmount = document.getElementById('sendAmount');
+    const sendXRPButton = document.getElementById('send');
+    const testnetButton = document.getElementById('testnet');
     connectButton.addEventListener('click', connect)
     sendButton.addEventListener('click', send)
+    showBalanceButton.addEventListener('click', showBalance)
+    sendXRPButton.addEventListener('click', sendXRP);
+    testnetButton.addEventListener('click', ()=>console.log(testnetButton.checked));
 
     // here we get permissions to interact with and install the snap
     async function connect () {
@@ -50,16 +70,51 @@
     // here we call the snap's "hello" method
     async function send () {
       try {
-        await ethereum.request({
+        const response = await ethereum.request({
           method: 'wallet_invokeSnap',
           params: [snapId, {
-            method: 'hello'
+            method: 'getAddress'
           }]
         })
+        document.getElementById('address').innerHTML = response;
       } catch (err) {
         console.error(err)
         alert('Problem happened: ' + err.message || err)
       }
+    }
+    async function showBalance () {
+      try {
+        const response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          
+          params: [snapId, {
+            method: "getBalance",
+            params: {
+              network: testnetButton.checked? "testnet" : "mainnet"
+            }
+          }]
+        })
+        alert(response);
+      } catch (err) {
+        console.error(err)
+        alert('Problem happened: ' + err.message || err)
+      }
+    }
+    async function sendXRP(){
+      const response = await ethereum.request({
+        method: 'wallet_invokeSnap',
+        params: [snapId, {
+          method: 'transfer',
+          params:{
+            network: testnetButton.checked? "testnet":"mainnet",
+            to: sendAddress.value,
+            amount: sendAmount.value,
+          }
+        }
+        ]
+      })
+      console.log(response)
+      alert(response)
     }
   </script>
 </html>
