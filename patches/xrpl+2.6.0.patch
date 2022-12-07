@@ -1,0 +1,10 @@
+diff --git a/node_modules/xrpl/dist/npm/index.js b/node_modules/xrpl/dist/npm/index.js
+index 13b1b58..fd60561 100644
+--- a/node_modules/xrpl/dist/npm/index.js
++++ b/node_modules/xrpl/dist/npm/index.js
+@@ -1,4 +1,5 @@
+ "use strict";
++globalThis.Buffer = require('buffer/').Buffer;
+ var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+     if (k2 === undefined) k2 = k;
+     var desc = Object.getOwnPropertyDescriptor(m, k);

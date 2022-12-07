@@ -1,24 +1,30 @@
 {
-  "version": "1.0.0",
-  "proposedName": "MetaMask TypeScript Template Snap\n",
-  "description": "An example Snap written in TypeScript.",
+  "version": "0.0.2",
+  "description": "snapXRPL an XRPL wallet on MetaMask",
+  "proposedName": "XRPL",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/template-typescript-snap.git"
+    "url": "https://github.com/Kyraview/SnapXRPL.git"
   },
   "source": {
-    "shasum": "ZW1yly4ughA3heTnFzWGUMdo0zc87pYqXw2IyqLGbTQ=",
+    "shasum": "Do5+p4j0QgIWgmX8ehRKxYXcavJXRHzTMWqX065gbwQ=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "packageName": "template-typescript-snap",
+        "packageName": "snap-xrpl",
         "registry": "https://registry.npmjs.org/",
         "iconPath": "images/icon.svg"
       }
     }
   },
   "initialPermissions": {
-    "snap_confirm": {}
+    "snap_confirm": {},
+    "endowment:network-access": {},
+    "snap_getBip44Entropy": [
+      {
+        "coinType": 144
+      }
+    ]
   },
   "manifestVersion": "0.1"
 }
