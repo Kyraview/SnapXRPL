@@ -68,7 +68,7 @@ export class XrpClient{
     }
 
     async submit(blob){
-        await this.request({
+        const response = await this.request({
             "method": "submit",
             "params": [
                 {
@@ -76,5 +76,6 @@ export class XrpClient{
                 }
             ]
         })
+        return response
     }
 }

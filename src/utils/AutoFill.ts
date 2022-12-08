@@ -18,7 +18,7 @@ export default async function AutoFill(client: XrpClient, txn: Transaction): Pro
     console.log(txnOutline);
     if(!txnOutline.Fee){
       console.log("setting Transaction Fee")
-      txn.Fee = await calculateFeePerTransactionType(client, txnOutline as Transaction);
+      txnOutline.Fee = await calculateFeePerTransactionType(client, txnOutline as Transaction);
     }
     if(!txnOutline.Sequence){
       console.log("setting Transaction Sequence")
@@ -28,6 +28,7 @@ export default async function AutoFill(client: XrpClient, txn: Transaction): Pro
       console.log("Setting Transaction last ledger Sequence")
       txnOutline.LastLedgerSequence = await getLatestValidatedLedgerSequence(client, txnOutline as Transaction);
     }
+    console.log(txnOutline);
     return txnOutline as Transaction;
 
 }

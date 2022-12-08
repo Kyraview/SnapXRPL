@@ -42,7 +42,8 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ origin, request }) => 
       const txn = await TransactionBuilder.buildPaymentXrp(client, userAccount.address, request.params.to, request.params.amount);
 
       const signed = userAccount.sign(txn);
-      await client.submit(signed.tx_blob);
+      let submited = await client.submit(signed.tx_blob);
+      console.log(submited);
       return signed.hash;
       
     default:
