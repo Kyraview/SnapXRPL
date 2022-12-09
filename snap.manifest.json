@@ -1,5 +1,5 @@
 {
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "snapXRPL an XRPL wallet on MetaMask",
   "proposedName": "XRPL",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/Kyraview/SnapXRPL.git"
   },
   "source": {
-    "shasum": "oOkk6b/lFWFQwrr07w/Sfk87eiFhhT6nx64ODxmgEy4=",
+    "shasum": "E+Y8VGEacczXwDC44EaM4mXXjFwcqkzyy6Gl9Txkgk0=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",

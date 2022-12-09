@@ -1,6 +1,6 @@
 {
   "name": "snapxrpl",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "XRPL on metamask",
   "repository": {
     "type": "git",

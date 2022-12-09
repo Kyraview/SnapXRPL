@@ -24,6 +24,10 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ origin, request }) => 
     case 'getBalance':
       return await client.getBalance(userAccount.address);
     case 'signTxn':
+      const confirm = await Metamask.sendConfirmation("Sign Transaction", network, "Would you like to sign a transaction from "+origin)
+      if(!confirm){
+        return "User Rejected request";
+      }
       const filledTxn = await AutoFill(client, request.params.txn);
       console.log("txn is");
       console.log(request.params.txn);
