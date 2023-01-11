@@ -1211,16 +1211,16 @@
   integrity sha512-ZO9B3ohNhjomrufNAkxnDXV46Kut7NKzri7itDxUzHJncNtI1of7ewWh6fKPl/hr6Al6Gd7WgjPdJZGFpzKPQw==
 
 "@metamask/key-tree@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@metamask/key-tree/-/key-tree-6.0.0.tgz#9320ea075ef5a02709170fdceacc46a45ebb2364"
-  integrity sha512-zxdzDQrcltQ7ojkwCZmFnokWhgxWZKw+jxHqykX59f09obYdYzUS54qgjLzuxxWmhJApu6y9mfI1I1Ov34VNyQ==
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@metamask/key-tree/-/key-tree-6.1.0.tgz#e2bc9e617441c76f909f1638d8bb3ef9f255d54a"
+  integrity sha512-Z9quifwXPc/jImJwOQ1EZw4NamYq6Wm8wRMz0bilnN/u4VA4JdGil1L7DuGTkoO3zzgJScA056/ge8+gSs0HwQ==
   dependencies:
+    "@metamask/scure-bip39" "^2.1.0"
     "@metamask/utils" "^3.3.0"
     "@noble/ed25519" "^1.6.0"
     "@noble/hashes" "^1.0.0"
     "@noble/secp256k1" "^1.5.5"
     "@scure/base" "^1.0.0"
-    "@scure/bip39" "^1.0.0"
 
 "@metamask/object-multiplex@^1.1.0":
   version "1.2.0"
@@ -1271,6 +1271,14 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@metamask/safe-event-emitter/-/safe-event-emitter-2.0.0.tgz#af577b477c683fad17c619a78208cede06f9605c"
   integrity sha512-/kSXhY692qiV1MXu6EeOZvg5nECLclxNXcKCxJ3cXQgYuRymRHpdx/t7JXfsK+JLjwA1e1c1/SBrlQYpusC29Q==
+
+"@metamask/scure-bip39@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@metamask/scure-bip39/-/scure-bip39-2.1.0.tgz#13456884736e56ede15e471bd93c0aa0acdedd0b"
+  integrity sha512-Ndwdnld0SI6YaftEUUVq20sdoWcWNXsJXxvQkbiY42FKmrA16U6WoSh9Eq+NpugpKKwK6f5uvaTDusjndiEDGQ==
+  dependencies:
+    "@noble/hashes" "~1.1.1"
+    "@scure/base" "~1.1.0"
 
 "@metamask/snap-types@^0.23.0":
   version "0.23.0"
@@ -1438,14 +1446,6 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@scure/base/-/base-1.1.1.tgz#ebb651ee52ff84f420097055f4bf46cfba403938"
   integrity sha512-ZxOhsSyxYwLJj3pLZCefNitxsj093tb2vq90mp2txoYeBqbcjDjqFhyM8eUjq/uFm6zJ+mUuqxlS2FkuSY1MTA==
-
-"@scure/bip39@^1.0.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@scure/bip39/-/bip39-1.1.0.tgz#92f11d095bae025f166bef3defcc5bf4945d419a"
-  integrity sha512-pwrPOS16VeTKg98dYXQyIjJEcWfz7/1YJIwxUEPFfQPtc86Ym/1sVgQ2RLoD43AazMk2l/unK4ITySSpW2+82w==
-  dependencies:
-    "@noble/hashes" "~1.1.1"
-    "@scure/base" "~1.1.0"
 
 "@types/chrome@^0.0.136":
   version "0.0.136"
