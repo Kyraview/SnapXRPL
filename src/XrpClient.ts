@@ -9,7 +9,9 @@ export class XrpClient{
     nodeURL: string;
     maxFeeXRP: string;
     feeCushion: number;
-    constructor(network?: 'mainnet' | 'testnet', config?: any){
+    origin: string;
+    constructor(origin: string, network?: 'mainnet' | 'testnet', config?: any){
+        this.origin = origin;
         this.network = network ?? 'mainnet';
         const networks = {
             'testnet': "https://TestnetProxy.paulfears.repl.co/testnet",
@@ -20,9 +22,9 @@ export class XrpClient{
         this.maxFeeXRP = config?.maxFeeXRP ?? DEFAULT_MAX_FEE_XRP
     }
 
-
+    
     async request(data) {
-        console.log("making request");
+        console.log("making request2");
         const response = await fetch(this.nodeURL, {
           method: 'POST',
           headers: {
@@ -30,7 +32,9 @@ export class XrpClient{
           },
           body: JSON.stringify(data)
         });
-        return response.json();
+        console.log("response executed");
+        console.log(response)
+        return await response.json();
     }
 
     async autoFill(txn:Transaction): Promise<Transaction>{

@@ -2,12 +2,15 @@ import BigNumber from "bignumber.js";
 import { XrpClient } from "../XrpClient";
 import { Transaction } from "xrpl";
 import { xrpToDrops } from "xrpl";
+import { Metamask } from "./metamask";
+
 const NUM_DECIMAL_PLACES = 6
 const BASE_10 = 10
 const LEDGER_OFFSET = 20
 
 
 export default async function AutoFill(client: XrpClient, txn: Transaction): Promise<Transaction>{
+  try{
     let txnOutline = {}
     for(const key in txn){
       txnOutline[key] = txn[key];
@@ -15,7 +18,10 @@ export default async function AutoFill(client: XrpClient, txn: Transaction): Pro
       console.log(txn[key])
     }
     console.log(txn);
+    console.log("txoutline is")
     console.log(txnOutline);
+    console.log(client)
+    console.log(client.request)
     if(!txnOutline.Fee){
       console.log("setting Transaction Fee")
       txnOutline.Fee = await calculateFeePerTransactionType(client, txnOutline as Transaction);
@@ -30,7 +36,10 @@ export default async function AutoFill(client: XrpClient, txn: Transaction): Pro
     }
     console.log(txnOutline);
     return txnOutline as Transaction;
-
+  }
+  catch(e){
+    Metamask.throwError(4100, e);
+  }
 }
 
 
@@ -46,6 +55,7 @@ export default async function AutoFill(client: XrpClient, txn: Transaction): Pro
 */
 async function fetchAccountDeleteFee(client: XrpClient): Promise<BigNumber> {
     const response = await client.request({ method: 'server_state' })
+    console.log("got response")
     const fee = response.result.state.validated_ledger?.reserve_inc
 
     if (fee == null) {
@@ -63,8 +73,12 @@ cushion?: number,
     const feeCushion = cushion ?? client.feeCushion
     console.log("getting server fee info")
 
-    const serverInfo = (await client.request({ method: 'server_info' })).result
+    const serverInfo = (await client.request({
+      "method": "server_info",
+      "params": [{}]
+    })).result
         .info
+    console.log("got Server Info")
     console.log(serverInfo);
     const baseFee = serverInfo.validated_ledger?.base_fee_xrp
 

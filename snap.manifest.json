@@ -1,5 +1,5 @@
 {
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "snapXRPL an XRPL wallet on MetaMask",
   "proposedName": "XRPL",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/Kyraview/SnapXRPL.git"
   },
   "source": {
-    "shasum": "E+Y8VGEacczXwDC44EaM4mXXjFwcqkzyy6Gl9Txkgk0=",
+    "shasum": "lWDdzq9LDfIe6e6ZyTGlpBSa8276WJEsFFmq+z66wp8=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -19,7 +19,15 @@
   },
   "initialPermissions": {
     "snap_confirm": {},
+    "snap_dialog": {},
+    "endowment:rpc": {
+      "dapps": true,
+      "snaps": false
+    },
+    "endowment:ethereum-provider": {},
     "endowment:network-access": {},
+    "snap_manageState": {},
+    "snap_notify": {},
     "snap_getBip44Entropy": [
       {
         "coinType": 144

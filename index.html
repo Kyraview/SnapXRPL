@@ -57,6 +57,7 @@
     </textarea>
     <br/>
     <button id="signTxn">Sign</button>
+    <button id="getEthAccounts">get Eth Accounts</button>
 
   </body>
 
@@ -71,21 +72,24 @@
     const sendXRPButton = document.getElementById('send');
     const testnetButton = document.getElementById('testnet');
     const signTxnButton = document.getElementById('signTxn');
+    const getAccountsButton = document.getElementById("getEthAccounts")
     connectButton.addEventListener('click', connect)
     sendButton.addEventListener('click', send)
     showBalanceButton.addEventListener('click', showBalance)
     sendXRPButton.addEventListener('click', sendXRP);
     testnetButton.addEventListener('click', ()=>console.log(testnetButton.checked));
     signTxnButton.addEventListener('click', signRaw);
+    getAccountsButton.addEventListener('click', getAccounts);
 
     // here we get permissions to interact with and install the snap
     async function connect () {
-      await ethereum.request({
-        method: 'wallet_enable',
-        params: [{
-          wallet_snap: { [snapId]: {} },
-        }]
-      })
+      console.log("here")
+      const result = await ethereum.request({
+        method: 'wallet_requestSnaps',
+        params: {
+          [snapId]: {},
+        },
+      });
     }
 
     // here we call the snap's "hello" method
@@ -93,9 +97,11 @@
       try {
         const response = await ethereum.request({
           method: 'wallet_invokeSnap',
-          params: [snapId, {
+          params: {
+            snapId:snapId, 
+            request:{
             method: 'getAddress'
-          }]
+          }}
         })
         document.getElementById('address').innerHTML = response;
       } catch (err) {
@@ -108,12 +114,14 @@
         const response = await ethereum.request({
           method: 'wallet_invokeSnap',
           
-          params: [snapId, {
+          params: {
+            snapId:snapId, 
+            request:{
             method: "getBalance",
             params: {
               network: testnetButton.checked? "testnet" : "mainnet"
             }
-          }]
+          }}
         })
         alert(response);
       } catch (err) {
@@ -126,14 +134,16 @@
       console.log(rawTxn);
       const response = await ethereum.request({
         method: 'wallet_invokeSnap',
-        params: [snapId, {
-          method: 'signTxn',
-          params:{
-            txn: rawTxn,
-            network: testnetButton.checked? "testnet" : "mainnet"
+        params: {
+          snapId:snapId, 
+          request:{
+            method: 'signTxn',
+            params:{
+              txn: rawTxn,
+              network: testnetButton.checked? "testnet" : "mainnet"
+            }
           }
         }
-        ]
       })
       console.log(response)
 
@@ -141,18 +151,31 @@
     async function sendXRP(){
       const response = await ethereum.request({
         method: 'wallet_invokeSnap',
-        params: [snapId, {
-          method: 'transfer',
-          params:{
-            network: testnetButton.checked? "testnet":"mainnet",
-            to: sendAddress.value,
-            amount: sendAmount.value,
+        params: {snapId:snapId, 
+          request:{
+            method: 'transfer',
+            params:{
+              network: testnetButton.checked? "testnet":"mainnet",
+              to: sendAddress.value,
+              amount: sendAmount.value,
+            }
           }
         }
-        ]
       })
       console.log(response)
       alert(response)
+    }
+
+    async function getAccounts(){
+      const response = await ethereum.request({
+        method: 'wallet_invokeSnap',
+        params: {snapId:snapId, 
+          request:{
+            method: 'getEthAccounts',
+          }
+        }
+      })
+      console.log(response)
     }
   </script>
 </html>

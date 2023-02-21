@@ -3,6 +3,7 @@ Class for utility functions
 
 wallet is a global in the metamask context
 */
+import { panel, Panel, text, heading, divider } from '@metamask/snaps-ui';
 export class Metamask {
     static throwError(code, msg) {
       if (code === undefined) {
@@ -16,32 +17,41 @@ export class Metamask {
   
     static async notify(message: string): Promise<boolean> {
       try {
-        await wallet.request({
+        const result = await snap.request({
           method: 'snap_notify',
-          params: [
-            {
-              type: 'inApp',
-              message,
-            },
-          ],
-        });
-  
-        const result = await wallet.request({
-          method: 'snap_notify',
-          params: [
+          params:
             {
               type: 'native',
-              message,
+              message:message,
             },
-          ],
         });
         console.log(result);
+        
+        await snap.request({
+          method: 'snap_notify',
+          params: 
+            {
+              type: 'inApp',
+              message:message,
+            },
+        });
         return true;
       } catch (e) {
         console.log(e);
         await Metamask.sendConfirmation('alert', 'notifcation', message);
         return false;
       }
+    }
+
+    static async displayPanel(content:Panel, type:"Confirmation"|"Alert"|"Prompt"){
+      const output = await snap.request({
+        method:'snap_dialog',
+        params:{
+          content: content,
+          type: type
+        }
+      })
+      return output;
     }
   
     static async sendConfirmation(
@@ -62,15 +72,20 @@ export class Metamask {
         textAreaContent = textAreaContent.substring(0, 1800);
       }
   
-      const confirm = (await wallet.request({
-        method: 'snap_confirm',
-        params: [
-          {
-            prompt,
-            description,
-            textAreaContent,
-          },
-        ],
+      const confirm = (await snap.request({
+        method: 'snap_dialog',
+        params: {
+            content: panel(
+              [
+                heading(prompt),
+                text(description),
+                divider(),
+                text(textAreaContent)
+              ]
+            ),
+            type: "Confirmation"
+        }
+        
       })) as boolean;
   
       return confirm;
