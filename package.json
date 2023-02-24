@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@metamask/key-tree": "^6.0.0",
-    "@metamask/snaps-ui": "^0.29.0",
+    "@metamask/snaps-ui": "^0.30.0",
     "browserify": "^17.0.0",
     "browserify-global-shim": "^1.0.3",
     "browserify-shim": "^3.8.16",
